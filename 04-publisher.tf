@@ -49,7 +49,7 @@ locals {
 
 # Defining the project for a publisher to the clean room
 module "prc-project" {
-  source          = "../modules/project"
+  source          = "github.com/GoogleCloudPlatform/cloud-foundation-fabric/modules/project"
   parent          = var.project_config.parent
   billing_account = var.project_config.billing_account_id
   project_create  = var.project_config.billing_account_id != null
@@ -68,7 +68,7 @@ module "prc-project" {
 }
 
 module "prc-sa-0" {
-  source       = "../modules/iam-service-account"
+  source       = "github.com/GoogleCloudPlatform/cloud-foundation-fabric/modules/iam-service-account"
   project_id   = module.prc-project.project_id
   prefix       = var.prefix
   name         = "prc-sa-0"
@@ -85,7 +85,7 @@ resource "google_project_iam_member" "iam-prc" {
 
 # Creating a Cloud Storage bucket to host the data from the publisher
 module "prc-cs-0" {
-  source         = "../modules/gcs"
+  source         = "github.com/GoogleCloudPlatform/cloud-foundation-fabric/modules/gcs"
   project_id     = module.prc-project.project_id
   prefix         = var.prefix
   name           = "prc-cs-0"
@@ -102,7 +102,7 @@ module "prc-cs-0" {
 
 # Creating a dataset to host the data from the publisher and transfer the data from the Cloud Storage 
 module "publisher-dataset" {
-  source         = "../modules/bigquery-dataset"
+  source         = "github.com/GoogleCloudPlatform/cloud-foundation-fabric/modules/bigquery-dataset"
   project_id     = module.prc-project.project_id
   id             = "publisher_dataset"
   location       = var.location
@@ -143,7 +143,7 @@ resource "google_bigquery_data_transfer_config" "publisher-transfer" {
 
 # Create a dataset and a view for the Data Clean Room
 module "dcr-publisher-dataset" {
-  source         = "../modules/bigquery-dataset"
+  source         = "github.com/GoogleCloudPlatform/cloud-foundation-fabric/modules/bigquery-dataset"
   project_id     = module.prc-project.project_id
   id             = "dcr_publisher_dataset"
   location       = var.location

@@ -31,7 +31,7 @@ locals {
 
 # Defining the project for the subscriber to the clean room
 module "cur-project" {
-  source          = "../modules/project"
+  source          = "github.com/GoogleCloudPlatform/cloud-foundation-fabric/modules/project"
   parent          = var.project_config.parent
   billing_account = var.project_config.billing_account_id
   project_create  = var.project_config.billing_account_id != null
@@ -54,7 +54,7 @@ module "cur-project" {
 }
 
 module "cur-sa-0" {
-  source       = "../modules/iam-service-account"
+  source       = "github.com/GoogleCloudPlatform/cloud-foundation-fabric/modules/iam-service-account"
   project_id   = module.cur-project.project_id
   prefix       = var.prefix
   name         = "cur-sa-0"

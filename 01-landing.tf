@@ -34,7 +34,7 @@ locals {
 
 # Defining the project that will host the Data Clean Room
 module "land-project" {
-  source          = "../modules/project"
+  source          = "github.com/GoogleCloudPlatform/cloud-foundation-fabric/modules/project"
   parent          = var.project_config.parent
   billing_account = var.project_config.billing_account_id
   project_create  = var.project_config.billing_account_id != null
@@ -54,7 +54,7 @@ module "land-project" {
 
 # Defining the service account that will be used by the Data Clean Room
 module "land-sa-0" {
-  source       = "../modules/iam-service-account"
+  source       = "github.com/GoogleCloudPlatform/cloud-foundation-fabric/modules/iam-service-account"
   project_id   = module.land-project.project_id
   prefix       = var.prefix
   name         = "lnd-sa-0"

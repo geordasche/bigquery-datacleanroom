@@ -6,7 +6,7 @@
 
 # Creating a BigQuery dataset to host the sample data set "thelook_ecommerce"
 module "thelook-dataset" {
-  source         = "../modules/bigquery-dataset"
+  source         = "github.com/GoogleCloudPlatform/cloud-foundation-fabric/modules/bigquery-dataset"
   project_id     = module.land-project.project_id
   id             = var.thelook_dataset
   location       = var.location
@@ -37,7 +37,7 @@ resource "google_bigquery_data_transfer_config" "thelook-transfer" {
 
 # Creating a Dataset to host the Data Clean Room
 module "dcr-dataset" {
-  source         = "../modules/bigquery-dataset"
+  source         = "github.com/GoogleCloudPlatform/cloud-foundation-fabric/modules/bigquery-dataset"
   project_id     = module.land-project.project_id
   id             = var.dcr_dataset
   location       = var.location
